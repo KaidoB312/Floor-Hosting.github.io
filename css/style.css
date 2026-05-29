@@ -925,6 +925,10 @@ button { font: inherit; cursor: pointer; border: none; background: none; }
   .section { padding-block: var(--section-gap); }
 
   .hamburger { display: flex; z-index: 101; }
+  .hamburger--active .hamburger__line:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger--active .hamburger__line:nth-child(2) { opacity: 0; transform: scaleX(0); }
+  .hamburger--active .hamburger__line:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
   .nav {
     position: fixed;
     inset: 0;
@@ -936,9 +940,10 @@ button { font: inherit; cursor: pointer; border: none; background: none; }
     gap: 2.5rem;
     opacity: 0;
     pointer-events: none;
-    transition: opacity 300ms var(--ease-out);
+    transform: scale(1.04);
+    transition: opacity 350ms var(--ease-out), transform 350ms var(--ease-out);
   }
-  .nav--open { opacity: 1; pointer-events: auto; }
+  .nav--open { opacity: 1; pointer-events: auto; transform: scale(1); }
   .nav__list {
     flex-direction: column;
     align-items: center;
@@ -946,6 +951,8 @@ button { font: inherit; cursor: pointer; border: none; background: none; }
   }
   .nav__link { font-size: var(--fs-xl); }
   .nav__cta { display: inline-flex; margin-top: 0.5rem; }
+
+  body.no-scroll { overflow: hidden; }
 
   .hero { padding-block: 7rem 3rem; }
   .hero__stats { gap: 1.5rem; flex-wrap: wrap; justify-content: center; }

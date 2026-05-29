@@ -11,16 +11,40 @@
   const sections = document.querySelectorAll('section[id]');
 
   /* ---- Mobile menu toggle ---- */
+  var isOpen = false;
+
+  function openMenu() {
+    isOpen = true;
+    nav.classList.add('nav--open');
+    hamburger.classList.add('hamburger--active');
+    hamburger.setAttribute('aria-expanded', 'true');
+    document.body.classList.add('no-scroll');
+  }
+
+  function closeMenu() {
+    isOpen = false;
+    nav.classList.remove('nav--open');
+    hamburger.classList.remove('hamburger--active');
+    hamburger.setAttribute('aria-expanded', 'false');
+    document.body.classList.remove('no-scroll');
+  }
+
   hamburger.addEventListener('click', function () {
-    const isOpen = nav.classList.toggle('nav--open');
-    hamburger.setAttribute('aria-expanded', isOpen);
+    if (isOpen) { closeMenu(); } else { openMenu(); }
+  });
+
+  nav.addEventListener('click', function (e) {
+    if (e.target === nav) { closeMenu(); }
   });
 
   navLinks.forEach(function (link) {
     link.addEventListener('click', function () {
-      nav.classList.remove('nav--open');
-      hamburger.setAttribute('aria-expanded', 'false');
+      closeMenu();
     });
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && isOpen) { closeMenu(); }
   });
 
   /* ---- Active nav link on scroll ---- */
